@@ -17,19 +17,15 @@ from datetime import datetime
 import os
 
 # local
-from .client import MovieClient
+from .client import StockClient
 
 # update with your API Key
-OMDB_API_KEY = '3044e7e9'
-
-# do not remove these 2 lines (required for autograder to work)
-if os.getenv('OMDB_API_KEY'):
-    OMDB_API_KEY = os.getenv('OMDB_API_KEY')
+TWELVE_DATA_API_KEY = '5314c5f703304b8e9b845ccaa072f567'
 
 db = MongoEngine()
 login_manager = LoginManager()
 bcrypt = Bcrypt()
-movie_client = MovieClient(OMDB_API_KEY)
+stock_client = StockClient(TWELVE_DATA_API_KEY)
 
 from .users.routes import users
 from .movies.routes import movies
