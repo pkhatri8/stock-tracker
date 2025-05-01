@@ -23,11 +23,8 @@ class SearchForm(FlaskForm):
     submit = SubmitField("Search")
 
 
-class MovieReviewForm(FlaskForm):
-    text = TextAreaField(
-        "Comment", validators=[InputRequired(), Length(min=5, max=500)]
-    )
-    submit = SubmitField("Enter Comment")
+class stockWatchForm(FlaskForm):
+    submit = SubmitField("Watch Stock")
 
 
 class RegistrationForm(FlaskForm):

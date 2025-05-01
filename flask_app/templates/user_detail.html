@@ -7,13 +7,13 @@
 <div class="container mx-auto w-full md:w-2/3 lg:w-1/3 text-true-black">
     {# User's Profile Picture #}
     <img class="rounded-2xl" src="data:image/png;base64,{{ profile_pic }}" alt="image">
-    {# TODO: Indicate which user's reviews we're looking at #}
+    {# TODO: Indicate which user's stocks we're looking at #}
     <h2 class="text-4xl font-bold opacity-50 my-4">{{user.username }}'s Stock Watchlist</h2>
 
 </div>
 <div class="container mx-auto w-full md:w-2/3 lg:w-1/3 text-true-black">
-    {# TODO: Show all reviews made by the user #}
-    <h4 class="text-2xl text-neutral-500">Number of Stocks: <b>{{ reviews|length }}</b></h4>
+    {# TODO: Show all stocks made by the user #}
+    <h4 class="text-2xl text-neutral-500">Number of Stocks: <b>{{ watchedStocks|length }}</b></h4>
 
     <table>
         <thead>
@@ -22,15 +22,17 @@
                 <th style="border: solid black">Symbol</th>
                 <th style="border: solid black">High</th>
                 <th style="border: solid black">Low</th>
+                <th style="border: solid black">Watch date</th>
             </tr>
         </thead>
         <tbody>
-            {% for review in reviews %}
+            {% for stock in watchedStocks %}
             <tr class="bg-gray-100 text-true-black">
-                <td style="border: solid black">{{ review.content }}</td>
-                <td style="border: solid black">{{ review.content }}</td>
-                <td style="border: solid black">{{ review.content }}</td>
-                <td style="border: solid black">{{ review.content }}</td>
+                <td style="border: solid black">{{ stock.name }}</td>
+                <td style="border: solid black">{{ stock.symbol }}</td>
+                <td style="border: solid black">{{ stock.high }}</td>
+                <td style="border: solid black">{{ stock.low }}</td>
+                <td style="border: solid black">{{ stock.date }}</td>
             </tr>
             {% endfor %}
         </tbody>

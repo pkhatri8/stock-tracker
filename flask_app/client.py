@@ -58,7 +58,7 @@ if __name__ == "__main__":
     import os
     
     client = StockClient(os.environ.get("TWELVE_DATA_API_KEY"))
-    stock_details = client.get_stock_details("QLYS")
+    stock_details = client.get_stock_details("GOOG")
     print(f"Name: {stock_details.name}")
     print(f"Symbol: {stock_details.symbol}")
     print(f"Exchange: {stock_details.exchange}")
