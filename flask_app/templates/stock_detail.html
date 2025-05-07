@@ -1,40 +1,57 @@
 {% extends "header.html" %} {% block content %}
 
 {% if error_msg %}
-  <b class="text-red-400">
-    {{ error_msg | safe }}
-  </b>
+  <div class="w-full text-center mt-4">
+    <b class="text-red-400">
+      {{ error_msg | safe }}
+    </b>
+  </div>
 {% endif %}
 
 {% if stock %}
 
 {# Display card for the stock details #}
 <div class="movie-container text-true-black">
-  <ul class="movie-info">
-    <div class="movie-title">[{{ stock.name }}] 
-      <p class="movie-date"> &middot; [{{ stock.symbol }}] </p>
+  <div class="movie-info">
+    <div class="movie-title">{{ stock.name }}
+      <p style="color: black;" class="movie-date"> &middot; {{ stock.symbol }} </p>
     </div>
-    <li class="opacity-40 md:px-4"><b>Name:</b> {{ stock.name }} </li>
-    <li class="opacity-40 md:px-4"><b>Symbol:</b> {{ stock.symbol }} </li>
-    <li class="opacity-40 md:px-4"><b>Exchange:</b> {{ stock.exchange }} </li>
-    <li class="opacity-40 md:px-4"><b>Currency:</b> {{ stock.currency }} </li>
-    <li class="opacity-40 md:px-4"><b>Datetime:</b> {{ stock.datetime }} </li>
-    <li class="opacity-40 md:px-4"><b>Open:</b> {{ stock.open }} </li>
-    <li class="opacity-40 md:px-4"><b>High:</b> {{ stock.high }} </li>
-    <li class="opacity-40 md:px-4"><b>Low:</b> {{ stock.low }} </li>
-    <li class="opacity-40 md:px-4"><b>Close:</b> {{ stock.close }} </li>
-    <li class="opacity-40 md:px-4"><b>Volume:</b> {{ stock.volume }} </li>
-    <li class="opacity-40 md:px-4"><b>Previous Close:</b> {{ stock.previous_close }} </li>
-    <li class="opacity-40 md:px-4"><b>Change:</b> {{ stock.change_percent }} </li>
-    <li class="opacity-40 md:px-4"><b>Average Volume:</b> {{ stock.average_volume }} </li>
-    <li class="opacity-40 md:px-4"><b>Is this stock market open:</b> {{ stock.is_market_open }} </li>
-  </ul>
-  
+
+    <table style="background-color: rgb(253 186 116); color: black;" class="mt-4 w-full border border-black text-sm bg-white bg-opacity-80 overflow-hidden shadow">
+      <tbody>
+        <tr><td class="px-4 py-2 font-bold border border-black">Name:</td><td class="px-4 py-2 border border-black">{{ stock.name }}</td></tr>
+        <tr><td class="px-4 py-2 font-bold border">Symbol:</td><td class="px-4 py-2 border">{{ stock.symbol }}</td></tr>
+        <tr><td class="px-4 py-2 font-bold border">Exchange:</td><td class="px-4 py-2 border">{{ stock.exchange }}</td></tr>
+        <tr><td class="px-4 py-2 font-bold border">Currency:</td><td class="px-4 py-2 border">{{ stock.currency }}</td></tr>
+        <tr><td class="px-4 py-2 font-bold border">Datetime:</td><td class="px-4 py-2 border">{{ stock.datetime }}</td></tr>
+        <tr><td class="px-4 py-2 font-bold border">Open:</td><td class="px-4 py-2 border">{{ stock.open }}</td></tr>
+        <tr><td class="px-4 py-2 font-bold border">High:</td><td class="px-4 py-2 border">{{ stock.high }}</td></tr>
+        <tr><td class="px-4 py-2 font-bold border">Low:</td><td class="px-4 py-2 border">{{ stock.low }}</td></tr>
+        <tr><td class="px-4 py-2 font-bold border">Close:</td><td class="px-4 py-2 border">{{ stock.close }}</td></tr>
+        <tr><td class="px-4 py-2 font-bold border">Volume:</td><td class="px-4 py-2 border">{{ stock.volume }}</td></tr>
+        <tr><td class="px-4 py-2 font-bold border">Previous Close:</td><td class="px-4 py-2 border">{{ stock.previous_close }}</td></tr>
+        <tr><td class="px-4 py-2 font-bold border">Change:</td><td class="px-4 py-2 border">{{ stock.change_percent }}</td></tr>
+        <tr><td class="px-4 py-2 font-bold border">Average Volume:</td><td class="px-4 py-2 border">{{ stock.average_volume }}</td></tr>
+        <tr><td class="px-4 py-2 font-bold border">Is this stock market open:</td><td class="px-4 py-2 border">{{ stock.is_market_open }}</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   {# everyone's watched stocks #}
   <div class="reviews">
     <h1 class="reviews-title"> Watchers
-      <small class="reviews-count"> {{ watchers | length }} watches </small>
+      <small style="color: black;" class="reviews-count"> &middot; {{ watchers | length }} watches </small>
     </h1>
+
+    {% if current_user.is_authenticated %}
+      <div class="container mx-auto mb-4">
+        <form method="POST" action="" class="review-form">
+          {{ form.csrf_token }}
+          {{ form.submit(class="review-button text-white") }}
+        </form>
+      </div>
+    {% endif %}
+
     <ul class="review-container">
       {% for watch in watchers %}
         <li class="review flex gap-2">
@@ -49,17 +66,9 @@
         </li>
       {% endfor %}
     </ul>
-
-    {% if current_user.is_authenticated %}
-      <div class="container mx-auto">
-        <form method="POST" action="" class="review-form">
-          {{ form.csrf_token }}
-          {{ form.submit(class="review-button") }}
-        </form>
-      </div>
-    {% endif %}
   </div>
   <div class="w-0 lg:w-96"></div>
-  
 </div>
-{% endif %} {% endblock content %}
+<div class="h-20"></div>
+{% endif %}
+{% endblock content %}
